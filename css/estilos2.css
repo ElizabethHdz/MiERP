@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: blue;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.contenedor{
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+header{
+    background: #EB4A33;
+    margin: 20px 0;
+}
+header h1{
+color: black;
+padding: 20px 0;
+text-align: center;
+}
