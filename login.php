@@ -5,7 +5,7 @@
   //En este caso, si la sesion esta iniciada, checo que tenga el nombre del usuario, y abro la pagina de inicio
   if (isset($_SESSION["Usuario"])) {
     header("Location: inicio.php");
-
+//Prueba
   }
   //Ahora checo que la variable POST tenga datos
   if (!empty($_POST)) {//si es diferente de vacio, entocnes
