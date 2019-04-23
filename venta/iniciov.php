@@ -4,7 +4,6 @@ if (!isset($_SESSION["Usuario"]) || $_SESSION['Tipo_Usuario'] != 1) {//si no exi
   header("Location: ../index.php");
 }
 
-var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +21,8 @@ var_dump($_SESSION);
     <br>
     <h1>Ventas</h1><br>
     <a href="consultarv.php" class="btn btn-primary">Consultar ventas</a><br><br>
+    <a href="reportev.php" class="btn btn-primary">Reporte ventas</a><br><br>
     <!--<a href="agregarp.php" class="btn btn-primary">Agregar</a><br><br>
-    <a href="modificarp.php" class="btn btn-primary">Modificar</a><br><br>
     <a href="eliminarp.php" class="btn btn-primary">Eliminar</a><br><br>-->
 
     <a href="../inicio.php" class="btn btn-warning">Regresar</a>

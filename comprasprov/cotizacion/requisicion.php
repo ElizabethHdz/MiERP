@@ -1,6 +1,6 @@
 <?php
 session_start();//Inicia una nueva sesion o reaunuda la existente
-require('../php/conexion.php');//solicitamosla conexion para las consultas
+require('../../php/conexion.php');//solicitamosla conexion para las consultas
 
 $proveedor = "";//aqui guardamos el proveedor al que se le hara la compra
 var_dump($_SESSION);
@@ -27,6 +27,7 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
     }
 
   }
+
   $sqlP = "SELECT * FROM producto WHERE Id_Producto IN(SELECT Id_Producto FROM producto_proveedor WHERE RFC_Direcciones='$proveedor');";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultP = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
 
@@ -45,15 +46,15 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
    <head>
      <meta charset="utf-8">
      <!--<link rel="stylesheet" type="text/css" href="css/estilos.css">-->
-     <script src="../js/jquery-3.3.1.min.js"></script>
-     <link rel="stylesheet" href="../css/bootstrap.min.css">
-     <script src="../js/bootstrap.js"></script>
-     <script src="../js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="../css/estilosPrincipal.css">
-     <link rel="stylesheet" href="../css/font-awesome.min.css">
-     <link rel="stylesheet" href="../css/owl.carousel.css">
-     <link rel="stylesheet" href="../css/responsive.css">
-     <title>Compra</title>
+     <script src="../../js/jquery-3.3.1.min.js"></script>
+     <link rel="stylesheet" href="../../css/bootstrap.min.css">
+     <script src="../../js/bootstrap.js"></script>
+     <script src="../../js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="../../css/estilosPrincipal.css">
+     <link rel="stylesheet" href="../../css/font-awesome.min.css">
+     <link rel="stylesheet" href="../../css/owl.carousel.css">
+     <link rel="stylesheet" href="../../css/responsive.css">
+     <title>Requisición</title>
 
    </head>
    <body>
@@ -78,17 +79,14 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
           }?>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li> <a href="fincomprapro.php"> <?php echo count($_SESSION['Productos']); ?> <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-            <li> <a href="concompra.php"> Mis compras</a> </li>
-          <li><a href="../logout.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
+            <li> <a href="finrequisicion.php"> <?php echo count($_SESSION['Productos']); ?> Finalizar cotizacion</a></li>
+          <li><a href="../../logout.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
         </ul>
       </div>
      </nav>
 
      <!--imprimimos los datos en pantalla-->
      <!--<h1><?php //echo "Bienvenido ".utf8_decode($row['nombre']); ?></h1>en caso de tener la tabla empelados, con esto y los comentarios de arriba sacamos el nombre y lo imprimimos-->
-     <h1><?php echo "Bienvenido ".utf8_decode($_SESSION['Usuario']); ?></h1><br>
-
 
      <script type="text/javascript">
        function clic(){
@@ -99,21 +97,22 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
 
          var valorp = document.getElementById('cmbProv');
          $.ajax({
-           url: 'proveedor.php',
+           url: '../proveedor.php',
            data: {'Proveedor' : valorp.value},
            type: "GET",
            success: function(){
              $('#cmbProv').hide('slow');
              $('h4').hide('slow');
-
+             //aqui debo de hacer un load
            }
          })
        };
      </script>
-
      <!--si ya existe un prooveedor previamente guardado en la variable, entonces ocultamos el combo  -->
      <?php if (!isset($_SESSION['Proveedor'])) {?>
-     <h4>Selecciones un proveedor</h4>
+
+
+     <h4>Seleccione un proveedor</h4>
      <select class="" name="Proveedor" onchange="clic()" required id="cmbProv">
        <option value="0">Seleccione un proveedor</option>
        <?php //con la consulta previa de los tipos de usuario, aqui los imprimimos en el combo para que se seleccionen por nombre, y los guardamos por numero
@@ -133,10 +132,10 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
  					<h2><?php echo $row['Nombre']; ?></h2>
  					<div class="service_hoverly">
  						<i class="fa fa-glass"></i>
- 						<h2><?php echo $row['Precio_Venta']; ?></h2>
+ 						<h2></h2>
  						<p><?php echo $row['Descripcion']; ?> </p>
             <?php if ($_SESSION['Tipo_Usuario'] > 0) { ?>
-            <button type="button" name="button"> <a id="enlace" name="enlace" href="realizarcom.php?Id_Producto=<?php echo $row['Id_Producto']?>">Agregar al carrito</a></button>
+            <button type="button" name="button"> <a id="enlace" name="enlace" href="requisicion.php?Id_Producto=<?php echo $row['Id_Producto']?>">Agregar al carrito</a></button>
 
 
           <?php } ?>

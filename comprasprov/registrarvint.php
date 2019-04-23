@@ -70,6 +70,7 @@ session_start();
   var_dump($_SESSION['Productos2']);
   echo "<h1>      Compra realizada exitosamente, sus productos se entregaran el $fecha1 en la dirección $dire :3    </h1>";
   $_SESSION['Productos'] = array();
+  $_SESSION['Productos2'] = array();
 
  ?>
 <!DOCTYPE html>

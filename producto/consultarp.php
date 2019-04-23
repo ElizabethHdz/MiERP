@@ -41,6 +41,8 @@
       </style>
 </head>
 <body>
+
+    <h1>Catálogo de productos</h1><br>
     <table>
       <thead>
         <th>ID_Producto</th>

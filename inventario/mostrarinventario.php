@@ -70,6 +70,6 @@ if (!isset($_SESSION["Usuario"])) {//si no existe, entonces devolvemos al login
     <?php } ?>
   </table><br><br>
 
-    <a href="indexdirecciones.php" class="btn btn-warning">Regresar</a>
+    <a href="../inicio.php" class="btn btn-warning">Regresar</a>
 </body>
 </html>
