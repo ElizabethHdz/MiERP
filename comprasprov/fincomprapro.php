@@ -13,6 +13,7 @@
     }
   }
 
+$proveedor = $_SESSION['Proveedor'];
  ?>
  <!DOCTYPE html>
  <html lang="es" dir="ltr">
@@ -96,12 +97,13 @@
      $totalp = 0;
      $cantidades = 0;
      foreach ($_SESSION['Productos2'] as $key => $value) {
-       $sqlpf = "SELECT * FROM producto where Id_Producto = '$key'";//consultamos los tipos de usuario existentes, se usa para el registro
+       //$sqlpf = "SELECT * FROM producto where Id_Producto = '$key'";//consultamos los tipos de usuario existentes, se usa para el registro
+       $sqlpf =  "SELECT P.Nombre, P.Descripcion, P.Bandera, P.IVA, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$key' AND Q.RFC_Direcciones='$proveedor';";
        $resultpf = $mysqli->query($sqlpf);//ejecutamos la consulta y guardamos
 
        while ($row = $resultpf->fetch_assoc()) {
          if ($row['Bandera']  == 1) {
-           $totalp = $row['Precio_Venta'] * $value;
+           $totalp = $row['Precio_Compra'] * $value;
            $ivap = ($row['IVA'] * $totalp) / 100 ;
            $totalp = $ivap + $totalp ;
            $total = $total + $totalp;
@@ -109,15 +111,11 @@
 
          ?>
          <tr>
-           <!-- <td><?php echo $row['Id_Producto']; ?></td> -->
            <td><?php echo $row['Nombre']; ?></td>
-           <!-- <td><?php echo $row['Descripcion']; ?></td> -->
-           <td><?php echo $row['Precio_Venta']; ?></td>
+           <td><?php echo $row['Precio_Compra']; ?></td>
            <td><?php echo $value; ?> </td>
-           <!-- <td><?php echo $row['Descuento_Producto']; ?></td> -->
            <td><?php echo $row['IVA']; ?></td>
            <!-- <td><?php echo $row['Unidad_Medida']; ?></td> -->
-           <!-- <td><?php echo $row['Id_Categoria']; ?></td> -->
            <td><?php echo $totalp; ?></td>
          </tr>
        <?php }
