@@ -73,31 +73,33 @@ function drawBasic() {
       }
 
       //tercer reorte de compras
-/*
-      google.charts.load('current', {'packages':['corechart']});
-          google.charts.setOnLoadCallback(drawChart);
+     </script>
+     <script type="text/javascript">
 
-          function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-              ['Fecha', 'Cantidad de articulos comprados'],
-              <?php
-              while ($row = $resultCompras->fetch_assoc()) {
-                echo "['".$row['Fecha']."',".$row['Comprados']."],";
-              }
-               ?>
-              //['2007',  1030]
-            ]);
+           google.charts.load('current', {'packages':['corechart']});
+               google.charts.setOnLoadCallback(drawChart);
 
-            var options = {
-              title: 'Compras dentro del periodo',
-              curveType: 'function',
-              legend: { position: 'bottom' }
-            };
+               function drawChart() {
+                 var data = google.visualization.arrayToDataTable([
+                   ['Fecha', 'Cantidad de articulos comprados'],
+                   <?php
+                   while ($row = $resultCompras->fetch_assoc()) {
+                     echo "['".$row['Fecha']."',".$row['Comprados']."],";
+                   }
+                    ?>
+                   //['2007',  1030]
+                 ]);
 
-            var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+                 var options = {
+                   title: 'Compras dentro del periodo',
+                   curveType: 'function',
+                   legend: { position: 'bottom' }
+                 };
 
-            chart2.draw(data, options);
-          }*/
+                 var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+
+                 chart2.draw(data, options);
+               }
      </script>
    </head>
    <body>
