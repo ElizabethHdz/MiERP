@@ -1,13 +1,22 @@
 <?php
   require('../php/conexion.php');
+  if (!isset($_POST['submit'])) {
+    header("Location: formReportes.php");
+  }
+  $idP = $_POST['producto'];
+
+  $nombre = "SELECT Nombre FROM producto WHERE Id_Producto='$idP'";
+  $nombre = $mysqli->query($nombre);
+  $nombre = $nombre->fetch_assoc();
+  $nombre = $nombre['Nombre'];
 
   $sqlP = "SELECT P.Nombre, COUNT(Cantidad_Articulos) As Vendidos FROM detalle_venta D, producto P WHERE (P.Id_Producto=D.Id_Producto) GROUP by D.Id_Producto";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultP = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
 
-  $sqlP = "SELECT V.Fecha, COUNT(D.Cantidad_Articulos) As Vendidos FROM detalle_venta D, venta V WHERE (V.Folio=D.Folio_Venta) AND D.Id_Producto=2 GROUP by V.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sqlP = "SELECT V.Fecha, COUNT(D.Cantidad_Articulos) As Vendidos FROM detalle_venta D, venta V WHERE (V.Folio=D.Folio_Venta) AND D.Id_Producto='$idP' GROUP by V.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultSales = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
 
-  $sqlP = "SELECT C.Fecha, COUNT(D.Cantidad_Articulos) As Comprados FROM detalle_compra D, compra C WHERE (C.Folio=D.Folio_Compra) AND D.Id_Producto=5 GROUP by C.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sqlP = "SELECT C.Fecha, COUNT(D.Cantidad_Articulos) As Comprados FROM detalle_compra D, compra C WHERE (C.Folio=D.Folio_Compra) AND D.Id_Producto='$idP' GROUP by C.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultCompras = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
  ?>
 
@@ -21,10 +30,17 @@
 
 function drawBasic() {
     var data = google.visualization.arrayToDataTable([
-      ['Producto', 'Unidades totales vendidas'],
+      ['Producto', 'Unidades totales vendidas',  { role: 'style' }],
       <?php
       while ($row = $resultP->fetch_assoc()) {
-        echo "['".$row['Nombre']."',".$row['Vendidos']."],";
+
+        if ($row['Nombre'] == $nombre) {
+            echo "['".$row['Nombre']."',".$row['Vendidos'].","."'red'"."],";
+        } else {
+            echo "['".$row['Nombre']."',".$row['Vendidos'].","."'blue'". "],";
+        }
+
+        //echo "['".$row['Nombre']."',".$row['Vendidos']."],";
       }
        ?>
       //['Philadelphia, PA', 1526000, 1517000]
@@ -103,6 +119,8 @@ function drawBasic() {
      </script>
    </head>
    <body>
+
+     <h1>Reporte de ventas/compras de <?php echo $nombre ?></h1>
       <div id="chart_div"></div><br>
       <div id="curve_chart" style="width: 900px; height: 500px"></div><br><br>
       <div id="curve_chart2" style="width: 900px; height: 500px"></div>
