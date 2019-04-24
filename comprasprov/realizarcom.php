@@ -27,7 +27,7 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
     }
 
   }
-  $sqlP = "SELECT * FROM producto WHERE Id_Producto IN(SELECT Id_Producto FROM producto_proveedor WHERE RFC_Direcciones='$proveedor');";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sqlP = "SELECT P.Id_Producto, P.Nombre, P.Descripcion, P.Bandera, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE P.Id_Producto=Q.Id_Producto AND RFC_Direcciones='$proveedor';";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultP = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
 
 
@@ -133,7 +133,7 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
  					<h2><?php echo $row['Nombre']; ?></h2>
  					<div class="service_hoverly">
  						<i class="fa fa-glass"></i>
- 						<h2><?php echo $row['Precio_Venta']; ?></h2>
+ 						<h2><?php echo $row['Precio_Compra']; ?></h2>
  						<p><?php echo $row['Descripcion']; ?> </p>
             <?php if ($_SESSION['Tipo_Usuario'] > 0) { ?>
             <button type="button" name="button"> <a id="enlace" name="enlace" href="realizarcom.php?Id_Producto=<?php echo $row['Id_Producto']?>">Agregar al carrito</a></button>
