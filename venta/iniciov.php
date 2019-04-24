@@ -21,7 +21,7 @@ if (!isset($_SESSION["Usuario"]) || $_SESSION['Tipo_Usuario'] != 1) {//si no exi
     <br>
     <h1>Ventas</h1><br>
     <a href="consultarv.php" class="btn btn-primary">Consultar ventas</a><br><br>
-    <a href="reportev.php" class="btn btn-primary">Reporte ventas</a><br><br>
+    <a href="formReportes.php" class="btn btn-primary">Reporte ventas</a><br><br>
     <!--<a href="agregarp.php" class="btn btn-primary">Agregar</a><br><br>
     <a href="eliminarp.php" class="btn btn-primary">Eliminar</a><br><br>-->
 
