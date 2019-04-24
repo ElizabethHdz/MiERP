@@ -14,6 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/isotope.pkgd.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-ui.js"></script>
