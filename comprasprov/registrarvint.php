@@ -38,11 +38,11 @@ session_start();
 
   //Registramos todos los articulos comprados
   foreach ($_SESSION['Productos2'] as $key => $value) {
-    $sqlpf = "SELECT Precio_Venta, IVA, Unidad_Medida FROM producto where Id_Producto = '$key'";//consultamos los tipos de usuario existentes, se usa para el registro
+    $sqlpf = "SELECT P.IVA, P.Unidad_Medida, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$key';";//consultamos los tipos de usuario existentes, se usa para el registro
     $resultpf = $mysqli->query($sqlpf);//ejecutamos la consulta y guardamos
     $resultpf = $resultpf->fetch_assoc();
 
-    $totalp = $resultpf['Precio_Venta'] * $value;
+    $totalp = $resultpf['Precio_Compra'] * $value;
     $ivap = ($resultpf['IVA'] * $totalp) / 100 ;
     $totalp = $totalp + $ivap;
     $can = $value;
@@ -51,7 +51,7 @@ session_start();
     $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
 
 
-    $sql1 = "SELECT Cantidad from inventario WHERE Id_Producto='$key'";//Aqui debe de checarse ademas el lote del producto porque podemos tener un producto con varios lotes, en este caso solo vamos a checar primero el producto
+    $sql1 = "SELECT Cantidad from inventario WHERE Id_Producto='$key' AND Bandera=1";//Aqui debe de checarse ademas el lote del producto porque podemos tener un producto con varios lotes, en este caso solo vamos a checar primero el producto
     $resultado = $mysqli->query($sql1);
     $resultado1 = $resultado->fetch_assoc();
     $n_columnas = $resultado->num_rows;
@@ -71,6 +71,7 @@ session_start();
   echo "<h1>      Compra realizada exitosamente, sus productos se entregaran el $fecha1 en la dirección $dire :3    </h1>";
   $_SESSION['Productos'] = array();
   $_SESSION['Productos2'] = array();
+  $_SESSION['Proveedor'] = "";
 
  ?>
 <!DOCTYPE html>
