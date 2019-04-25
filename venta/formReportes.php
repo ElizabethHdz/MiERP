@@ -15,9 +15,9 @@
     <form class="" action="reportev.php" method="post">
       <h2>Reporte por fechas</h2><br>
       <label>Fecha inicio</label>
-      <input type="date" name="fecha1" value="">
+      <input type="date" name="fecha1" value="" required>
       <label>Fecha de corte</label>
-      <input type="date" name="fecha2" value="">
+      <input type="date" name="fecha2" value="" required>
       <input type="submit" name="submit" value="Ver reportes">
     </form>
     <br><br>
