@@ -27,7 +27,7 @@
 
  <html>
    <head>
-     <script type="text/javascript" src="loader.js"></script>
+     <script type="text/javascript" src="http://mierp.tec:8081/venta/loader.js"></script>
      <script type="text/javascript">
        google.charts.load("current", {packages:["corechart"]});
        google.charts.setOnLoadCallback(drawChart);
@@ -157,7 +157,7 @@ function drawBasic() {
    </head>
    <body>
      <div id="piechart_3d" style="width: 900px; height: 500px;"></div><br><br>
-     <div id="top_x_div" style="width: 800px; height: 600px;"></div><br>
+     <div id="top_x_div" style="width: 800px; height: 600px;"></div><br><br>
      <div id="top_x_div1" style="width: 800px; height: 600px;"></div>
      <div id="chart_div"></div><br>
    </body>
