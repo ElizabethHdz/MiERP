@@ -123,6 +123,6 @@ function drawBasic() {
      <h1>Reporte de ventas/compras de <?php echo $nombre ?></h1>
       <div id="chart_div"></div><br>
       <div id="curve_chart" style="width: 900px; height: 500px"></div><br><br>
-      <div id="curve_chart2" style="width: 900px; height: 500px"></div>
+      <div id="curve_chart2" style="width: 900px; height: 500px"></div><br><br>
    </body>
  </html>
