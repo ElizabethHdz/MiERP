@@ -10,13 +10,13 @@
   $nombre = $nombre->fetch_assoc();
   $nombre = $nombre['Nombre'];
 
-  $sqlP = "SELECT P.Nombre, COUNT(Cantidad_Articulos) As Vendidos FROM detalle_venta D, producto P WHERE (P.Id_Producto=D.Id_Producto) GROUP by D.Id_Producto";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sqlP = "SELECT P.Nombre, SUM(Cantidad_Articulos) As Vendidos FROM detalle_venta D, producto P WHERE (P.Id_Producto=D.Id_Producto) GROUP by D.Id_Producto";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultP = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
 
-  $sqlP = "SELECT V.Fecha, COUNT(D.Cantidad_Articulos) As Vendidos FROM detalle_venta D, venta V WHERE (V.Folio=D.Folio_Venta) AND D.Id_Producto='$idP' GROUP by V.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sqlP = "SELECT V.Fecha, SUM(D.Cantidad_Articulos) As Vendidos FROM detalle_venta D, venta V WHERE (V.Folio=D.Folio_Venta) AND D.Id_Producto='$idP' GROUP by V.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultSales = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
 
-  $sqlP = "SELECT C.Fecha, COUNT(D.Cantidad_Articulos) As Comprados FROM detalle_compra D, compra C WHERE (C.Folio=D.Folio_Compra) AND D.Id_Producto='$idP' GROUP by C.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sqlP = "SELECT C.Fecha, SUM(D.Cantidad_Articulos) As Comprados FROM detalle_compra D, compra C WHERE (C.Folio=D.Folio_Compra) AND D.Id_Producto='$idP' GROUP by C.Fecha";//consultamos los tipos de usuario existentes, se usa para el registro
   $resultCompras = $mysqli->query($sqlP);//ejecutamos la consulta y guardamos
  ?>
 
