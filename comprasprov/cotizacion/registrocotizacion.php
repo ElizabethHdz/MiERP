@@ -63,6 +63,7 @@
     echo "<h1>      La requisición fue enviada al proveedor exitosamente, comuniquese con el gerente para conocer su estado </h1>";
     $_SESSION['Productos'] = array();
     $_SESSION['Productos2'] = array();
+    $_SESSION['Proveedor'] = "";
 
     echo "<a href='cotizacion.php'>Regresar</a>";
  ?>

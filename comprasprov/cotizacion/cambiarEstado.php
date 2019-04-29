@@ -1,9 +1,9 @@
 <?php
 session_start();//Inicia una nueva sesion o reaunuda la existente
-if ($_SESSION['Tipo_Usuario'] == 1 || $_SESSION['Tipo_Usuario'] == 6) {//si no existe, entonces devolvemos al login
+if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al login
 
 }else {
-  header("Location: cotizacion.php");
+  header("Location: consultarCot.php");
 }
   require('../../php/conexion.php');
 
@@ -12,6 +12,17 @@ if ($_SESSION['Tipo_Usuario'] == 1 || $_SESSION['Tipo_Usuario'] == 6) {//si no e
 
   $sql = "SELECT * FROM cotizacion where Folio='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
   $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
+  $row = $result->fetch_assoc();
+
+  $nombrep = $row['RFC_Proveedor'];
+
+  $sql = "SELECT Nombre_Fiscal, Direccion, Telefono, Email FROM direcciones where RFC='$nombrep';";//consultamos los tipos de usuario existentes, se usa para el registro
+  $dProveedor = $mysqli->query($sql);//ejecutamos la consulta y guardamos
+  $dProveedor = $dProveedor->fetch_assoc();
+
+  $sql = "SELECT * FROM detalle_cotizacion where Folio_Cotizacion='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
+  $detalleCot = $mysqli->query($sql);//ejecutamos la consulta y guardamos
+
 
  ?>
 <!DOCTYPE html>
@@ -78,6 +89,11 @@ if ($_SESSION['Tipo_Usuario'] == 1 || $_SESSION['Tipo_Usuario'] == 6) {//si no e
 
   <h1>Detalle de cotizacion</h1><br>
   <h2>Proveedor</h2>
+
+  <label>Nombre:</label> <?php echo $dProveedor['Nombre_Fiscal']; ?><br>
+  <label>Direccion:</label> <?php echo $dProveedor['Direccion']; ?><br>
+  <label>Teléfono:</label> <?php echo $dProveedor['Telefono']; ?>
+  <label>Email:</label> <?php echo $dProveedor['Email']; ?>
   <?php
 
    ?>
@@ -96,9 +112,6 @@ if ($_SESSION['Tipo_Usuario'] == 1 || $_SESSION['Tipo_Usuario'] == 6) {//si no e
 
       </thead>
 
-      <?php  while ($row = $result->fetch_assoc()) {
-        if ($row['Bandera']  == 1) {
-        ?>
         <tr>
           <td><?php echo $row['Folio']; ?></td>
           <td><?php echo $row['RFC_Proveedor']; ?></td>
@@ -110,16 +123,45 @@ if ($_SESSION['Tipo_Usuario'] == 1 || $_SESSION['Tipo_Usuario'] == 6) {//si no e
           <td><?php echo $row['Vigencia']; ?></td>
           <td><?php echo $row['Estado']; ?></td>
         </tr>
-      <?php } ?>
+  </table><br>
+
+  <h3>Detalle de cotización</h3>
+
+  <table>
+    <thead>
+      <th>Nombre de producto</th>
+      <th>Cantidad</th>
+      <th>Importe</th>
+      <th>Incluye IVA</th>
+    </thead>
+
+    <?php  while ($row = $detalleCot->fetch_assoc()) {
+      if ($row['Bandera']  == 1) {
+        $var2 = $row['Id_Producto'];
+        $sql2 = "SELECT Nombre FROM producto where ID_Producto = '$var2'";
+        $result2 = $mysqli->query($sql2);
+        $row2 = $result2->fetch_assoc()
+      ?>
+      <tr>
+        <td><?php echo $row2['Nombre']; ?></td>
+        <td><?php echo $row['Cantidad_Articulos']; ?></td>
+        <td><?php echo $row['Importe']; ?></td>
+        <td><?php if ($row['Aplica_IVA'] == 1) {?> Si
+          <?php}else {?>
+            No
+          <?php } ?></td>
+      </tr>
     <?php } ?>
-  </table><br><br>
+  <?php } ?>
+  </table>
+
 
 
     <h3>Cambiar estado</h3><br>
 
-    <a href="cambiarE.php?Estado=Recibido" class="btn btn-primary">Recibido</a><br><br>
-    <a href="cambiarE.php?Estado=Revision" class="btn btn-primary">En revision</a><br><br>
-    <a href="cambiarE.php?Estado=Autorizado" class="btn btn-primary">Autorizado</a><br><br>
+    <a href="registrarCompraCot.php?Folio=<?php echo $folio; ?>" class="btn btn-primary">Recibido</a>
+    <a href="cambiarE.php?Estado=Revision" class="btn btn-primary">En revision</a>
+    <a href="cambiarE.php?Estado=Autorizado" class="btn btn-primary">Autorizado</a>
     <a href="cambiarE.php?Estado=Enviado" class="btn btn-primary">Enviado</a><br><br>
 
 

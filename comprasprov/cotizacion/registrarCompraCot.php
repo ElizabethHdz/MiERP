@@ -1,9 +1,19 @@
 <?php
 session_start();
-  require('../php/conexion.php');
+  require('../../php/conexion.php');
 
   //Datos del cliente
-  $compania = $_SESSION['Proveedor'];
+  $compania = $_GET['Folio'];
+  $sql = "SELECT RFC_Proveedor, Cantidad_Articulos, Subtotal FROM cotizacion where Folio = '$compania';";
+  $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
+  $DatosCot = $result->fetch_assoc();
+
+  $sql = "SELECT Id_Producto, Cantidad_Articulos FROM detalle_cotizacion where Folio_Cotizacion = '$compania';";
+  $result5 = $mysqli->query($sql);//ejecutamos la consulta y guardamos
+
+
+
+  $compania = $DatosCot['RFC_Proveedor'];
   $usuario = $_SESSION['Usuario'];
   $sql = "SELECT RFC, Direccion FROM direcciones where Email = '$usuario';";//consultamos los tipos de usuario existentes, se usa para el registro
   $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
@@ -17,12 +27,10 @@ session_start();
   $hora = date("H:i:s");
 
   //Asiganoms la cantidad de articulos
-  $cantA = 0;
-  foreach ($_SESSION['Productos2'] as $valo) {
-    $cantA = $cantA + $valo;
-  }
+  $cantA = $DatosCot['Cantidad_Articulos'];
+
   //Valores totales
-  $subtotal = $_SESSION['Subtotal'];
+  $subtotal = $DatosCot['Subtotal'];
   $totall = ((16 * $subtotal) / 100) + $subtotal ;
 
 
@@ -37,7 +45,9 @@ session_start();
   $folio = $result['MAX(Folio)'];
 
   //Registramos todos los articulos comprados
-  foreach ($_SESSION['Productos2'] as $key => $value) {
+  while ($row = $result5->fetch_assoc()) {
+    $key = $row['Id_Producto'];
+    $value = $row['Cantidad_Articulos'];
     $sqlpf = "SELECT P.IVA, P.Unidad_Medida, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$key';";//consultamos los tipos de usuario existentes, se usa para el registro
     $resultpf = $mysqli->query($sqlpf);//ejecutamos la consulta y guardamos
     $resultpf = $resultpf->fetch_assoc();
@@ -67,12 +77,14 @@ session_start();
 
   }
   //header('refresh: 4; url=../inicio.php');
-  var_dump($_SESSION['Productos2']);
+
   echo "<h1>      Compra realizada exitosamente, sus productos se entregaran el $fecha1 en la dirección $dire :3    </h1>";
   $_SESSION['Productos'] = array();
   $_SESSION['Productos2'] = array();
   $_SESSION['Proveedor'] = "";
-  $_SESSION['Subtotal'] = "";
+
+  $sql = "UPDATE cotizacion SET Estado='Recibido' WHERE Folio='$folio'";//consultamos los tipos de usuario existentes, se usa para el registro
+  $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
 
  ?>
 <!DOCTYPE html>
@@ -82,6 +94,6 @@ session_start();
     <title>Compra</title>
   </head>
   <body>
-    <a href="miscompras.php" class="btn btn-success">Ir a mis compras</a>
+    <a href="../../compra/miscompras.php" class="btn btn-success">Ir a mis compras</a>
   </body>
 </html>

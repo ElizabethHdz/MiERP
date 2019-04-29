@@ -3,7 +3,6 @@ session_start();//Inicia una nueva sesion o reaunuda la existente
 require('../../php/conexion.php');//solicitamosla conexion para las consultas
 
 $proveedor = "";//aqui guardamos el proveedor al que se le hara la compra
-var_dump($_SESSION);
 $sql = "SELECT RFC, Nombre_Fiscal FROM direcciones WHERE Bandera=1 AND (Tipo_Direccion=2 OR Tipo_Direccion=3);";//consultamos los tipos de usuario existentes, se usa para el registro
 $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
 
@@ -103,10 +102,11 @@ $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
            success: function(){
              $('#cmbProv').hide('slow');
              $('h4').hide('slow');
-             //aqui debo de hacer un load
+             window.location = "requisicion.php";
            }
          })
        };
+
      </script>
      <!--si ya existe un prooveedor previamente guardado en la variable, entonces ocultamos el combo  -->
      <?php if (!isset($_SESSION['Proveedor'])) {?>

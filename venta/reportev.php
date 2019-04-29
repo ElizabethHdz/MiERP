@@ -156,6 +156,8 @@ function drawBasic() {
      </script>
    </head>
    <body>
+     <h1>Reporte de ventas y compras del <?php echo $fecha1; ?> al <?php echo $fecha2; ?></h1>
+
      <div id="piechart_3d" style="width: 900px; height: 500px;"></div><br><br>
      <div id="top_x_div" style="width: 800px; height: 600px;"></div><br><br>
      <div id="top_x_div1" style="width: 800px; height: 600px;"></div>

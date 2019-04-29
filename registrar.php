@@ -145,7 +145,7 @@ if (!isset($_SESSION["Usuario"])) {//si no existe, entonces devolvemos al login
 
      <?php if($bandera){ ?><!--Pir ultimo, si la bandera es verdadera, imprimimos que fue exitoso el registro, y activamos la opcion de vovler a la pagina de inicio-->
        <h1>Registro Exitoso</h1>
-     <?php header('refresh: 1; url:inicio.php');}else {?>
+     <?php header('refresh: 1; inicio.php');}else {?>
        <br><!--En caso de error, imprimimos el Error-->
        <div style="font-size:16px; color:#cc0000;"><?php echo isset($error) ? utf8_decode($error) : '' ; ?></div>
 

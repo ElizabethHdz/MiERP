@@ -53,7 +53,7 @@ require('php/conexion.php');//solicitamosla conexion para las consultas
         <ul class="nav navbar-nav">
           <li class="active"><a href="inicio.php">Inicio</a></li>
           <?php
-           if ($_SESSION['Tipo_Usuario'] == 1) {?>
+           if ($_SESSION['Tipo_Usuario'] == 1 || $_SESSION['Tipo_Usuario'] == 6) {?>
             <li><a href="registrar.php">Registrar usuario</a></li>
             <li><a href="direccion/indexdirecciones.php" >Direcciones</a></li>
             <li><a href="producto/iniciop.php" >Productos</a></li>
