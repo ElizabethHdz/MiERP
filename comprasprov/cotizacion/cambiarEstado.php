@@ -132,24 +132,19 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
       <th>Nombre de producto</th>
       <th>Cantidad</th>
       <th>Importe</th>
-      <th>Incluye IVA</th>
     </thead>
 
-    <?php  while ($row = $detalleCot->fetch_assoc()) {
-      if ($row['Bandera']  == 1) {
-        $var2 = $row['Id_Producto'];
+    <?php  while ($row3 = $detalleCot->fetch_assoc()) {
+      if ($row3['Bandera']  == 1) {
+        $var2 = $row3['Id_Producto'];
         $sql2 = "SELECT Nombre FROM producto where ID_Producto = '$var2'";
         $result2 = $mysqli->query($sql2);
         $row2 = $result2->fetch_assoc()
       ?>
       <tr>
         <td><?php echo $row2['Nombre']; ?></td>
-        <td><?php echo $row['Cantidad_Articulos']; ?></td>
-        <td><?php echo $row['Importe']; ?></td>
-        <td><?php if ($row['Aplica_IVA'] == 1) {?> Si
-          <?php}else {?>
-            No
-          <?php } ?></td>
+        <td><?php echo $row3['Cantidad_Articulos']; ?></td>
+        <td><?php echo $row3['Importe']; ?></td>
       </tr>
     <?php } ?>
   <?php } ?>
@@ -159,7 +154,9 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
 
     <h3>Cambiar estado</h3><br>
 
-    <a href="registrarCompraCot.php?Folio=<?php echo $folio; ?>" class="btn btn-primary">Recibido</a>
+    <?php if ($row['Estado'] == 'Autorizado') { ?>
+      <a href="registrarCompraCot.php?Folio=<?php echo $folio; ?>" class="btn btn-primary">Recibido</a>
+    <?php } ?>
     <a href="cambiarE.php?Estado=Revision" class="btn btn-primary">En revision</a>
     <a href="cambiarE.php?Estado=Autorizado" class="btn btn-primary">Autorizado</a>
     <a href="cambiarE.php?Estado=Enviado" class="btn btn-primary">Enviado</a><br><br>
