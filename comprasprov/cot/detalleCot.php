@@ -1,4 +1,3 @@
-
 <?php
 session_start();//Inicia una nueva sesion o reaunuda la existente
 if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al login
@@ -9,21 +8,20 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
   require('../../php/conexion.php');
 
   $folio = $_GET['Folio'];
+  $proveedor = $_GET['RFC_Proveedor'];
   $_SESSION['Folio'] = $folio;
 
-  $sql = "SELECT * FROM cotizacion where Folio='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sql = "SELECT * FROM requisicion where Folio='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
   $result = $mysqli->query($sql);//ejecutamos la consulta y guardamos
   $row = $result->fetch_assoc();
 
-  $nombrep = $row['RFC_Proveedor'];
 
-  $sql = "SELECT Nombre_Fiscal, Direccion, Telefono, Email FROM direcciones where RFC='$nombrep';";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sql = "SELECT Nombre_Fiscal, Direccion, Telefono, Email FROM direcciones where RFC='$proveedor';";//consultamos los tipos de usuario existentes, se usa para el registro
   $dProveedor = $mysqli->query($sql);//ejecutamos la consulta y guardamos
   $dProveedor = $dProveedor->fetch_assoc();
 
-  $sql = "SELECT * FROM detalle_cotizacion where Folio_Cotizacion='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
+  $sql = "SELECT * FROM detalle_requisicion where Folio_Requisicion='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
   $detalleCot = $mysqli->query($sql);//ejecutamos la consulta y guardamos
-
 
  ?>
 <!DOCTYPE html>
@@ -102,7 +100,6 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
     <table border="1">
       <thead>
         <th>Folio</th>
-        <th>Proveedor</th>
         <th>Fecha de realizacion</th>
         <th>Cantidad de articulos</th>
         <th>Subtotal</th>
@@ -113,20 +110,37 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
 
       </thead>
 
+      <?php
+        //Calculo de los totales
+
+        $subtotal = 0;
+        $total = 0;
+
+        while ($rowT = $detalleCot->fetch_assoc()) {
+          $var2 = $rowT['Id_Producto'];
+          $sql = "SELECT Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE (P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$var2') AND Q.RFC_Direcciones='$proveedor'";
+          $consultaTotal = $mysqli->query($sql);
+          $consultaTotal = $consultaTotal->fetch_assoc();
+
+          $subtotal = $subtotal + $consultaTotal['Precio_Compra'];
+        }
+        $total = ((16 * $subtotal) / 100) + $subtotal ;
+       ?>
+
+
         <tr>
           <td><?php echo $row['Folio']; ?></td>
-          <td><?php echo $row['RFC_Proveedor']; ?></td>
-          <td><?php echo $row['Fecha_R']; ?></td>
+          <td><?php echo $row['Fecha_E']; ?></td>
           <td><?php echo $row['Cantidad_Articulos']; ?></td>
-          <td><?php echo $row['Subtotal']; ?></td>
-          <td><?php echo $row['IVA']; ?></td>
-          <td><?php echo $row['Total']; ?></td>
+          <td><?php echo $subtotal ?></td>
+          <td>16</td>
+          <td><?php echo $total ?></td>
           <td><?php echo $row['Vigencia']; ?></td>
           <td><?php echo $row['Estado']; ?></td>
         </tr>
   </table><br>
 
-  <h3>Detalle de cotización</h3>
+  <h3>Detalle de Productos</h3>
 
   <table>
     <thead>
@@ -135,29 +149,46 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
       <th>Importe</th>
     </thead>
 
-    <?php  while ($row3 = $detalleCot->fetch_assoc()) {
+    <form method="post">
+    <?php
+    $sql = "SELECT * FROM detalle_requisicion where Folio_Requisicion='$folio';";//consultamos los tipos de usuario existentes, se usa para el registro
+    $detalleCot = $mysqli->query($sql);//ejecutamos la consulta y guardamos
+
+    while ($row3 = $detalleCot->fetch_assoc()) {
       if ($row3['Bandera']  == 1) {
         $var2 = $row3['Id_Producto'];
-        $sql2 = "SELECT Nombre FROM producto where ID_Producto = '$var2'";
+        $sql2 = "SELECT P.Nombre, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE (P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$var2') AND Q.RFC_Direcciones='$proveedor'";
         $result2 = $mysqli->query($sql2);
         $row2 = $result2->fetch_assoc()
+
       ?>
       <tr>
-        <td><?php echo $row2['Nombre']; ?></td>
-        <td><?php echo $row3['Cantidad_Articulos']; ?></td>
-        <td><?php echo $row3['Importe']; ?></td>
+        <?php if ($row2['Nombre'] == ""): ?>
+          <td>El Proveedor no surte este producto</td>
+          <td>0</td>
+          <td>0</td>
+        <?php else: ?>
+          <td><?php echo $row2['Nombre']; ?></td>
+          <td> <input type="number" min="0" name="<?php echo $var2; ?>" value="<?php echo $row3['Cantidad_Articulos'];; ?>"> </td>
+          <!-- <td><?php echo $row3['Cantidad_Articulos']; ?></td> -->
+          <td><?php echo $row2['Precio_Compra']; ?></td>
+        <?php endif; ?>
+
       </tr>
     <?php } ?>
   <?php } ?>
-  </table>
+</table><br><br>
 
-
+<input type="submit" onclick="this.form.action = 'generarCot.php?RFC=<?php echo $proveedor; ?>&Folio=<?php echo $folio; ?>'" value="Generar cotizacion" class="btn btn-primary">
+<br><br>
 
     <h3>Cambiar estado</h3><br>
 
-    <?php if ($row['Estado'] == 'Autorizado') { ?>
-      <a href="registrarCompraCot.php?Folio=<?php echo $folio; ?>" class="btn btn-primary">Recibido</a>
+    <?php if ($row['Estado'] == 'Autorizado' && $total > 0) { ?>
+      <input type="submit" onclick="this.form.action = 'registrarCompra.php?RFC=<?php echo $proveedor; ?>'" value="Recibido" class="btn btn-primary">
     <?php } ?>
+    </form>
+
     <a href="cambiarE.php?Estado=Revision" class="btn btn-primary">En revision</a>
     <a href="cambiarE.php?Estado=Autorizado" class="btn btn-primary">Autorizado</a>
     <a href="cambiarE.php?Estado=Enviado" class="btn btn-primary">Enviado</a><br><br>
@@ -165,5 +196,6 @@ if ($_SESSION['Tipo_Usuario'] == 1) {//si no existe, entonces devolvemos al logi
 
 
     <a style="color:green;" href="consultarCot.php" class="btn btn-warning">Regresar</a>
+
 </body>
 </html>

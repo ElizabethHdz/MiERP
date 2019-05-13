@@ -48,7 +48,7 @@ session_start();
   while ($row = $result5->fetch_assoc()) {
     $key = $row['Id_Producto'];
     $value = $row['Cantidad_Articulos'];
-    $sqlpf = "SELECT P.IVA, P.Unidad_Medida, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$key';";//consultamos los tipos de usuario existentes, se usa para el registro
+    $sqlpf = "SELECT P.IVA, P.Unidad_Medida, Q.Precio_Compra FROM producto P INNER JOIN producto_proveedor Q WHERE (P.Id_Producto=Q.Id_Producto AND P.Id_Producto='$key') AND Q.RFC_Direcciones='$compania';";
     $resultpf = $mysqli->query($sqlpf);//ejecutamos la consulta y guardamos
     $resultpf = $resultpf->fetch_assoc();
 

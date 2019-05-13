@@ -1,6 +1,6 @@
 <?php
 session_start();//Inicia una nueva sesion o reaunuda la existente
-require('../php/conexion.php');//solicitamosla conexion para las consultas
+require('../../php/conexion.php');//solicitamosla conexion para las consultas
 
   if (!isset($_SESSION["Usuario"])) {//si no existe, entonces devolvemos al login
     header("Location: index.php");
@@ -19,14 +19,14 @@ require('../php/conexion.php');//solicitamosla conexion para las consultas
   <head>
     <meta charset="utf-8">
     <!--<link rel="stylesheet" type="text/css" href="css/estilos.css">-->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/estilosPrincipal.css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/owl.carousel.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/estilosPrincipal.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/owl.carousel.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
     <title>Bievenido</title>
   </head>
   <body>
@@ -51,10 +51,7 @@ require('../php/conexion.php');//solicitamosla conexion para las consultas
          }?>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-         <?php if ($_SESSION['Tipo_Usuario'] != 1) {?>
-           <li> <a href="compra/fincompra.php"> <?php echo count($_SESSION['Productos']); ?> <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-           <li> <a href="/compra/miscompras.php"> Mis compras</a> </li>
-         <?php  } ?>
+           <li> <a href="compra/fincompra.php"> <?php echo count($_SESSION['Productos']); ?> <span>Finalizar cotizacion</span></a></li>
          <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
        </ul>
      </div>
@@ -62,12 +59,11 @@ require('../php/conexion.php');//solicitamosla conexion para las consultas
 
     <!--imprimimos los datos en pantalla-->
     <!--<h1><?php //echo "Bienvenido ".utf8_decode($row['nombre']); ?></h1>en caso de tener la tabla empelados, con esto y los comentarios de arriba sacamos el nombre y lo imprimimos-->
-    <h1><?php echo "Bienvenido ".utf8_decode($_SESSION['Usuario']); ?></h1><br>
-    <h2>¿Qué deseas hacer?</h2><br><br>
 
-    <h3> <a href="realizarcom.php">Realizar una compra</a> </h3>
-    <h3> <a href="concompra.php">Consultar compras</a> </h3>
-    <h3> <a href="cot/cotizacion.php">Cotizaciones</a> </h3>
+    <h2>¿Qué deseas hacer?</h2><br>
+
+    <h3> <a href="consultarCot.php">Consultar cotizaciones</a> </h3>
+    <h3> <a href="requisicion.php">Realizar una nueva requizición</a> </h3>
 
   </body>
 </html>
