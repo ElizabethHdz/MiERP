@@ -40,10 +40,8 @@ function drawBasic() {
             echo "['".$row['Nombre']."',".$row['Vendidos'].","."'blue'". "],";
         }
 
-        //echo "['".$row['Nombre']."',".$row['Vendidos']."],";
       }
        ?>
-      //['Philadelphia, PA', 1526000, 1517000]
     ]);
 
     var options = {
