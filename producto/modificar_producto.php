@@ -39,10 +39,7 @@ if (isset($_POST['modificar'])) {
     header('refresh: 2; url=modificarp.php');
     echo "<p>      Modificacion exitosa    </p>";
   }
-} else {
-
 }
-
  ?>
 
 <!DOCTYPE html>

@@ -163,6 +163,14 @@
       $_SESSION['Cantidad_Articulos'] = $cantidades;
       ?>
 </table>
+
+<h2>Metodo de pago</h2>
+<form class="" action="index.html" method="post">
+  <input type="radio" name="tipopago" value="1"> Pago en una sola exhibición <br>
+  <input type="radio" name="tipopago" value="6"> 6 Meses sin intereses <br>
+  <input type="radio" name="tipopago" value="12"> 12 Meses sin intereses <br>
+  <input type="radio" name="tipopago" value="24"> 24 meses sin intereses<br>
+</form>
 <br>
   <a href="registrarv.php" class="btn btn-success" style="margin-left: 85em;">Realizar compra</a>
   </body>

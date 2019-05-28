@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2019 a las 00:43:10
+-- Tiempo de generación: 20-05-2019 a las 22:47:18
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -52,7 +52,13 @@ INSERT INTO `compra` (`Folio`, `RFC_Compania`, `RFC_Direcciones`, `Fecha_Entrega
 (10, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-05', '2019-04-02', '00:51:13', 2, '800.00', '16.00', '928.00', '1'),
 (11, 'jdflj122e2342', 'ITSL951205RTY', '2019-04-05', '2019-04-02', '01:52:28', 6, '1577.40', '16.00', '1829.78', '1'),
 (12, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-27', '2019-04-24', '23:15:56', 5, '1514.00', '16.00', '1756.24', '1'),
-(13, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-27', '2019-04-24', '23:23:21', 3, '932.00', '16.00', '1081.12', '1');
+(13, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-27', '2019-04-24', '23:23:21', 3, '932.00', '16.00', '1081.12', '1'),
+(15, 'HEAY970320F5T', 'ITSL951205RTY', '2019-05-01', '2019-04-28', '07:54:04', 5, '1150.00', '16.00', '1334.00', '1'),
+(16, 'TISJ970831E12', 'ITSL951205RTY', '2019-05-02', '2019-04-29', '23:39:40', 3, '1038.00', '16.00', '1204.08', '1'),
+(17, 'HEAY970320F5T', 'ITSL951205RTY', '2019-05-07', '2019-05-04', '01:14:25', 5, '1450.00', '16.00', '1682.00', '1'),
+(19, 'LOOA960311JKL', 'ITSL951205RTY', '2019-05-14', '2019-05-11', '09:28:05', 3, '300.00', '16.00', '348.00', '1'),
+(20, 'TISJ970831E12', 'ITSL951205RTY', '2019-05-14', '2019-05-11', '09:38:55', 2, '100.00', '16.00', '116.00', '1'),
+(21, 'LOOA960311JKL', 'ITSL951205RTY', '2019-05-16', '2019-05-13', '07:29:45', 2, '450.00', '16.00', '522.00', '1');
 
 -- --------------------------------------------------------
 
@@ -80,8 +86,11 @@ CREATE TABLE `cotizacion` (
 
 INSERT INTO `cotizacion` (`Folio`, `RFC_Proveedor`, `RFC_Compania`, `Fecha_R`, `Cantidad_Articulos`, `Subtotal`, `IVA`, `Total`, `Estado`, `Vigencia`, `Bandera`) VALUES
 (2, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-23', 4, '700.00', 16, '700.00', 'Enviado', '0000-00-00', '1'),
-(3, 'TISJ970831E12', 'ITSL951205RTY', '2019-04-23', 4, '769.00', 16, '892.04', 'Revision', '2019-05-23', '1'),
-(4, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-23', 4, '1000.00', 16, '1160.00', 'En revision', '2019-05-23', '1');
+(3, 'TISJ970831E12', 'ITSL951205RTY', '2019-04-23', 4, '769.00', 16, '892.04', 'Autorizado', '2019-05-23', '1'),
+(4, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-23', 4, '1000.00', 16, '1160.00', 'En revision', '2019-05-23', '1'),
+(5, 'HEAY970320F5T', 'ITSL951205RTY', '2019-04-28', 5, '1150.00', 16, '1334.00', 'Revision', '2019-05-28', '1'),
+(6, 'TISJ970831E12', 'ITSL951205RTY', '2019-04-29', 3, '1038.00', 16, '1204.08', 'Autorizado', '2019-05-29', '1'),
+(7, 'HEAY970320F5T', 'ITSL951205RTY', '2019-05-04', 5, '1450.00', 16, '1682.00', 'Autorizado', '2019-06-04', '1');
 
 -- --------------------------------------------------------
 
@@ -114,7 +123,16 @@ INSERT INTO `detalle_compra` (`Id_Producto`, `Folio_Compra`, `Cantidad_Articulos
 (1, 12, 2, '464.00', '0', '1'),
 (2, 12, 3, '1050.00', '0', '1'),
 (1, 13, 1, '232.00', '0', '1'),
-(2, 13, 2, '700.00', '0', '1');
+(2, 13, 2, '700.00', '0', '1'),
+(2, 15, 2, '700.00', '0', '1'),
+(3, 15, 3, '522.00', '0', '1'),
+(4, 16, 2, '1044.00', '0', '1'),
+(5, 16, 1, '116.00', '0', '1'),
+(2, 17, 3, '1050.00', '0', '1'),
+(1, 17, 2, '464.00', '0', '1'),
+(2, 19, 3, '900.00', '0', '1'),
+(5, 20, 2, '232.00', '0', '1'),
+(4, 21, 2, '1044.00', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -141,7 +159,41 @@ INSERT INTO `detalle_cotizacion` (`Id_Producto`, `Folio_Cotizacion`, `Cantidad_A
 (3, 3, 3, '450.00', '0', '1'),
 (4, 3, 1, '450.00', '0', '1'),
 (2, 4, 2, '700.00', '0', '1'),
-(3, 4, 2, '300.00', '0', '1');
+(3, 4, 2, '300.00', '0', '1'),
+(2, 5, 2, '700.00', '0', '1'),
+(3, 5, 3, '450.00', '0', '1'),
+(4, 6, 2, '900.00', '0', '1'),
+(5, 6, 1, '100.00', '0', '1'),
+(2, 7, 3, '1050.00', '0', '1'),
+(1, 7, 2, '400.00', '0', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_requisicion`
+--
+
+CREATE TABLE `detalle_requisicion` (
+  `Folio_Requisicion` int(11) NOT NULL,
+  `Id_Producto` int(11) NOT NULL,
+  `Cantidad_Articulos` int(11) NOT NULL,
+  `Cantidad_Comprados` int(11) NOT NULL,
+  `Bandera` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_requisicion`
+--
+
+INSERT INTO `detalle_requisicion` (`Folio_Requisicion`, `Id_Producto`, `Cantidad_Articulos`, `Cantidad_Comprados`, `Bandera`) VALUES
+(1, 2, 2, 5, 1),
+(1, 3, 3, 0, 1),
+(2, 1, 1, 0, 1),
+(2, 5, 1, 0, 1),
+(3, 1, 1, 0, 1),
+(3, 2, 1, 0, 1),
+(4, 5, 1, 0, 1),
+(4, 4, 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -232,11 +284,14 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`Id_Inventario`, `Id_Producto`, `Lote`, `Fecha_Entrada`, `Cantidad`, `U_Medida`, `Ubicacion`, `Bandera`) VALUES
-(4, 1, 1, '2019-04-24', 6, 'Pieza', 'Predeterminada', '1'),
+(4, 1, 1, '2019-05-04', 8, 'Pieza', 'Predeterminada', '1'),
 (5, 5, 1, '2019-04-02', 0, 'Pieza', 'Predeterminada', '0'),
-(6, 2, 1, '2019-04-24', 3, 'Pieza', 'Predeterminada', '0'),
-(7, 3, 1, '2019-04-05', 0, 'Pieza', 'Predeterminada', '0'),
-(8, 2, 1, '2019-04-27', 2, 'Pieza', 'Predeterminada', '1');
+(6, 2, 1, '2019-04-28', 12, 'Pieza', 'Predeterminada', '0'),
+(7, 3, 1, '2019-04-28', 15, 'Pieza', 'Predeterminada', '0'),
+(8, 2, 1, '2019-05-11', 11, 'Pieza', 'Predeterminada', '1'),
+(9, 3, 1, '2019-04-28', 3, 'Pieza', 'Predeterminada', '1'),
+(10, 4, 1, '2019-05-13', 4, 'Pieza', 'Predeterminada', '1'),
+(11, 5, 1, '2019-05-11', 3, 'Pieza', 'Predeterminada', '1');
 
 -- --------------------------------------------------------
 
@@ -295,6 +350,31 @@ INSERT INTO `producto_proveedor` (`RFC_Direcciones`, `Id_Producto`, `Precio_Comp
 ('LOOA960311JKL', 4, '450.00', '1'),
 ('TISJ970831E12', 4, '469.00', '1'),
 ('TISJ970831E12', 5, '100.00', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `requisicion`
+--
+
+CREATE TABLE `requisicion` (
+  `Folio` int(11) NOT NULL,
+  `Fecha_E` date NOT NULL,
+  `Cantidad_Articulos` int(11) NOT NULL,
+  `Estado` varchar(12) COLLATE utf8_spanish2_ci NOT NULL,
+  `Vigencia` date NOT NULL,
+  `Bandera` char(1) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `requisicion`
+--
+
+INSERT INTO `requisicion` (`Folio`, `Fecha_E`, `Cantidad_Articulos`, `Estado`, `Vigencia`, `Bandera`) VALUES
+(1, '2019-05-11', 5, 'En revision', '2019-06-11', '1'),
+(2, '2019-05-11', 2, 'En revision', '2019-06-11', '1'),
+(3, '2019-05-11', 2, 'Autorizado', '2019-06-11', '1'),
+(4, '2019-05-11', 3, 'Autorizado', '2019-06-11', '1');
 
 -- --------------------------------------------------------
 
@@ -391,6 +471,7 @@ INSERT INTO `usuarios` (`Usuario`, `Password`, `Tipo_Usuario`, `Bandera`) VALUES
 ('Admin@admin.mx', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, '1'),
 ('Admin@admin2.mx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '1'),
 ('aimeelopez@gmail.com', 'b0f7ef9f5027b10afdc6c89e302686ab19bf6905', 3, '1'),
+('antonio@antonio.com', 'a08f08bac39aeae6c9580ade7aa8387b5a0e7428', 6, '1'),
 ('bern@hotmail.com', '2c6ead15b51ad9541e7a5cfd2808fbdbd084d63f', 3, '1'),
 ('tec@gmail.com', '73f7a2f5b9bd744ab54cd1d307975868fc93a844', 1, '1'),
 ('tijeras@tijerinas.com', 'd36a52c6c2e4a9bf5fb164bfaaf2931786db0d1a', 3, '1');
@@ -460,6 +541,13 @@ ALTER TABLE `detalle_cotizacion`
   ADD KEY `Folio_Compra` (`Folio_Cotizacion`);
 
 --
+-- Indices de la tabla `detalle_requisicion`
+--
+ALTER TABLE `detalle_requisicion`
+  ADD KEY `Folio_Requisicion` (`Folio_Requisicion`),
+  ADD KEY `Id_Producto` (`Id_Producto`);
+
+--
 -- Indices de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
@@ -494,6 +582,12 @@ ALTER TABLE `producto_proveedor`
   ADD PRIMARY KEY (`Id_Producto`,`RFC_Direcciones`),
   ADD KEY `RFC_Direcciones` (`RFC_Direcciones`),
   ADD KEY `Id_Producto` (`Id_Producto`);
+
+--
+-- Indices de la tabla `requisicion`
+--
+ALTER TABLE `requisicion`
+  ADD PRIMARY KEY (`Folio`);
 
 --
 -- Indices de la tabla `tipo_categoria`
@@ -535,25 +629,31 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `Folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
-  MODIFY `Folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `Id_Inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_Inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
   MODIFY `Id_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `requisicion`
+--
+ALTER TABLE `requisicion`
+  MODIFY `Folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_categoria`
@@ -601,6 +701,13 @@ ALTER TABLE `detalle_compra`
 --
 ALTER TABLE `detalle_cotizacion`
   ADD CONSTRAINT `detalle_cotizacion_ibfk_1` FOREIGN KEY (`Folio_Cotizacion`) REFERENCES `cotizacion` (`Folio`);
+
+--
+-- Filtros para la tabla `detalle_requisicion`
+--
+ALTER TABLE `detalle_requisicion`
+  ADD CONSTRAINT `detalle_requisicion_ibfk_1` FOREIGN KEY (`Folio_Requisicion`) REFERENCES `requisicion` (`Folio`),
+  ADD CONSTRAINT `detalle_requisicion_ibfk_2` FOREIGN KEY (`Id_Producto`) REFERENCES `producto` (`Id_Producto`);
 
 --
 -- Filtros para la tabla `detalle_venta`

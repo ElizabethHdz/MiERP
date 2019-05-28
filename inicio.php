@@ -60,6 +60,7 @@ require('php/conexion.php');//solicitamosla conexion para las consultas
             <li><a href="venta/iniciov.php">Ventas</a> </li>
             <li><a href="comprasprov/compraprov.php">Compras</a></li>
             <li><a href="inventario/mostrarinventario.php">Inventario</a></li>
+            <li> <a href="contabilidad/indexConta.php">Contabilidad</a> </li>
           <?php } else {?>
             <li> <a href="perfil.php">Perfil</a> </li>
             <?php
